@@ -181,3 +181,13 @@ wandb/
 swanlog/
 generated_predictions.jsonl
 predictions_score.json
+
+QuickStart/data
+QuickStart/ckpt
+QuickStart/ckpt_my
+QuickStart/output
+
+DriveLM/data
+DriveLM/ckpt
+DriveLM/ckpt_my
+DriveLM/output
