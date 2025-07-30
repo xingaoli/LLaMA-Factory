@@ -1,4 +1,4 @@
-model_name_or_path: QuickStart/ckpt_my/llama3_lora_sft
+model_name_or_path: ckpt_my/llama3_lora_sft_self_cognition
 #adapter_name_or_path: QuickStart/output/llama3-8b/lora/sft
 template: llama3
 infer_backend: huggingface  # choices: [huggingface, vllm, sglang]

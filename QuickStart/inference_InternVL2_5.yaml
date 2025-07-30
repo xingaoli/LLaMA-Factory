@@ -1,5 +1,5 @@
-model_name_or_path: QuickStart/ckpt/InternVL2_5-8B-MPO-hf
-adapter_name_or_path: QuickStart/output/InternVL2_5-8B-MPO-hf/qlora-sft-self-cognition-adapter
+model_name_or_path: ckpt/InternVL2_5-8B-MPO-hf
+adapter_name_or_path: output/InternVL2_5-8B-MPO-hf/qlora-sft-self-cognition-adapter
 template: intern_vl
 infer_backend: huggingface  # choices: [huggingface, vllm, sglang]
 trust_remote_code: true
