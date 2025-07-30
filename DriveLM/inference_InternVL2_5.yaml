@@ -1,0 +1,7 @@
+model_name_or_path: QuickStart/ckpt/InternVL2_5-8B-MPO-hf
+adapter_name_or_path: QuickStart/output/InternVL2_5-8B-MPO-hf/qlora-sft-self-cognition-adapter
+template: intern_vl
+infer_backend: huggingface  # choices: [huggingface, vllm, sglang]
+trust_remote_code: true
+quantization_bit: 4  # choices: [8 (bnb/hqq/eetq), 4 (bnb/hqq), 3 (hqq), 2 (hqq)]
+quantization_method: bnb  # choices: [bnb, hqq, eetq]
