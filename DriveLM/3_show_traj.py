@@ -54,7 +54,7 @@ def draw_traj_on_map_patch(scene_token, frame_token, traj_offset, nusc, map_fold
     map_name = nusc.get('log', nusc.get('scene', sample['scene_token'])['log_token'])['location']
     nusc_map = NuScenesMap(dataroot=map_folder, map_name=map_name)
     center = abs_pos[0]
-    patch_radius = 60
+    patch_radius = 10
     xmin, ymin = center[0] - patch_radius, center[1] - patch_radius
     xmax, ymax = center[0] + patch_radius, center[1] + patch_radius
     patch_polygon = Polygon([[xmin, ymin], [xmax, ymin], [xmax, ymax], [xmin, ymax]])
@@ -84,10 +84,18 @@ def draw_traj_on_map_patch(scene_token, frame_token, traj_offset, nusc, map_fold
     plt.grid(False)
     fig.canvas.draw()
     plt.tight_layout()
-    plt.show()
+    # plt.show()
+    save_name = frame_token
+    plt.savefig(
+        f'output/vis/{save_name}.png',
+        dpi=300,
+        bbox_inches='tight',
+        transparent=True,
+        facecolor='white'
+    )
 
 # 设置路径
-drivelm_result_path = "data/nuscenes_drivelm/scene_sample_token_to_traj.json"
+drivelm_result_path = "data/nuscenes_drivelm/val_trajs_pred.json"
 nusc_root = "data/nuscenes_drivelm"
 map_folder = "data/nuscenes_drivelm"
 nusc = NuScenes(version='v1.0-trainval', dataroot=nusc_root)
@@ -98,5 +106,5 @@ with open(drivelm_result_path, "r") as f:
 for scene_token, frame_dict in traj_data.items():
     for frame_token, traj_offset in frame_dict.items():
         draw_traj_on_map_patch(scene_token, frame_token, traj_offset, nusc, map_folder)
-        break  # 只看一帧
-    break
+    #     break  # 只看一帧
+    # break
