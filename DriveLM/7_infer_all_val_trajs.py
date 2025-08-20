@@ -70,7 +70,7 @@ for idx, data in enumerate(eval_data):
     completion = client.chat.completions.create(
         model="qwen2.5-vl",
         messages=messages,
-        # max_tokens=8192,
+        max_tokens=100,
         # temperature=0.7
     )
     end_time = time.time()
