@@ -12,7 +12,7 @@ SYSTEM = """You are an autonomous driving trajectory planner. Process the follow
 7. Textual behavior description (e.g., 'turning left slowly')
 
 Output requirements:
-- Generate ONLY space-separated offset tokens like 'x_127 y_21'
+- Generate ONLY space-separated trajectory tokens like 'x_127 y_21'
 - Never describe or explain your output
 - Example valid output: x_120 y_15 x_122 y_18 x_125 y_25"""
 
@@ -65,6 +65,6 @@ def convert2llama(root, dst):
 
 if __name__ == '__main__':
     root = "data/nuscenes_drivelm/trainval.json"
-    trajs_root = "data/nuscenes_drivelm/scene_sample_token_to_traj_token.json"
-    dst = "data/nuscenes_drivelm/trainval_trajs.json"
+    trajs_root = "data/nuscenes_drivelm/scene_sample_token_to_traj_token_offset.json"
+    dst = "data/nuscenes_drivelm/trainval_trajs_offset.json"
     convert2llama(root, dst)

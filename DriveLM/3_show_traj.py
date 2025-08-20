@@ -5,6 +5,8 @@ from pyquaternion import Quaternion
 from nuscenes.map_expansion.map_api import NuScenesMap
 from shapely.geometry import Polygon
 import matplotlib.pyplot as plt
+import random
+import os
 
 def draw_traj_on_map_patch(scene_token, frame_token, traj_offset, nusc, map_folder, seconds=3.0, freq=2.0):
     sample = nusc.get('sample', frame_token)
@@ -21,7 +23,7 @@ def draw_traj_on_map_patch(scene_token, frame_token, traj_offset, nusc, map_fold
     lidar2global_r = ego2global_r * lidar2ego_r
 
     # traj_offset -> global traj
-    traj_offset = np.array(traj_offset).cumsum(axis=0)
+    # traj_offset = np.array(traj_offset).cumsum(axis=0)
     abs_pos = [lidar2global_t[:2]]
     for step in traj_offset:
         cur = np.array([step[0], step[1], 0.0])
@@ -86,16 +88,19 @@ def draw_traj_on_map_patch(scene_token, frame_token, traj_offset, nusc, map_fold
     plt.tight_layout()
     # plt.show()
     save_name = frame_token
+    save_dir = 'output/vis/0820-1'
+    os.makedirs(save_dir, exist_ok=True)
     plt.savefig(
-        f'output/vis/{save_name}.png',
+        f'{save_dir}/{save_name}.png',
         dpi=300,
         bbox_inches='tight',
         transparent=True,
         facecolor='white'
     )
+    plt.close(fig)  # 关键！关闭当前图形释放内存
 
 # 设置路径
-drivelm_result_path = "data/nuscenes_drivelm/val_trajs_pred.json"
+drivelm_result_path = "data/nuscenes_drivelm/val_trajs_pred_offset.json"
 nusc_root = "data/nuscenes_drivelm"
 map_folder = "data/nuscenes_drivelm"
 nusc = NuScenes(version='v1.0-trainval', dataroot=nusc_root)
@@ -103,7 +108,21 @@ nusc = NuScenes(version='v1.0-trainval', dataroot=nusc_root)
 with open(drivelm_result_path, "r") as f:
     traj_data = json.load(f)
 
-for scene_token, frame_dict in traj_data.items():
+all_frames = [
+    (scene_id, frame_id)
+    for scene_id, frames in traj_data.items()
+    for frame_id in frames.keys()
+]
+
+selected_combinations = random.sample(all_frames, min(100, len(all_frames)))
+
+result = {}
+for scene_id, frame_id in selected_combinations:
+    if scene_id not in result:
+        result[scene_id] = {}
+    result[scene_id][frame_id] = traj_data[scene_id][frame_id]  # 保留原始数据
+
+for scene_token, frame_dict in result.items():
     for frame_token, traj_offset in frame_dict.items():
         draw_traj_on_map_patch(scene_token, frame_token, traj_offset, nusc, map_folder)
     #     break  # 只看一帧

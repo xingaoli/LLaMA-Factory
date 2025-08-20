@@ -164,7 +164,7 @@ if __name__ == "__main__":
         nusc_version='v1.0-trainval'
     )
     # 保存结果
-    with open("data/nuscenes_drivelm/scene_sample_token_to_traj.json", "w") as f:
+    with open("data/nuscenes_drivelm/scene_sample_token_to_traj_offset.json", "w") as f:
         json.dump(result, f, indent=2)
 
-    print("轨迹提取完成，已保存为 scene_sample_token_to_traj.json")
+    print("轨迹提取完成，已保存为 scene_sample_token_to_traj_offset.json")

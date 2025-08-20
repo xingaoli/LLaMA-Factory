@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from scipy.stats import circmean, circstd
 
 # 加载轨迹数据
-with open('data/nuscenes_drivelm/scene_sample_token_to_traj.json', 'r') as f:
+with open('data/nuscenes_drivelm/scene_sample_token_to_traj_offset.json', 'r') as f:
     traj_data = json.load(f)
 
 # 收集所有x/y坐标以计算真实范围
@@ -117,8 +117,8 @@ plt.show()
 # 定义离散化区间（每个坐标轴分256个桶）
 GRID_SIZE = 256
 # 参数
-X_MIN, X_MAX = -4, 4  # 扩一点边界防止截断
-Y_MIN, Y_MAX = -1, 11
+X_MIN, X_MAX = -14, 12  # 扩一点边界防止截断
+Y_MIN, Y_MAX = -2, 55
 x_bins = np.linspace(X_MIN, X_MAX, GRID_SIZE)
 y_bins = np.linspace(Y_MIN, Y_MAX, GRID_SIZE)
 
@@ -151,10 +151,10 @@ for scene_id, frames in tqdm(traj_data.items(), desc="Processing scenes"):
         tokenized_data[scene_id][frame_id] = tokens
 
 token_to_traj_offset_map = {'x_bins': x_bins.tolist(), 'y_bins': y_bins.tolist()}
-with open('data/nuscenes_drivelm/token_to_traj_offset_map.json', 'w') as f:
+with open('data/nuscenes_drivelm/token_to_traj_offset_map_offset.json', 'w') as f:
     json.dump(token_to_traj_offset_map, f, indent=2)
 
-with open('data/nuscenes_drivelm/scene_sample_token_to_traj_token.json', 'w') as f:
+with open('data/nuscenes_drivelm/scene_sample_token_to_traj_token_offset.json', 'w') as f:
     json.dump(tokenized_data, f, indent=2)
 
-print("✅ Tokenized trajectory data saved to scene_sample_token_to_traj_token.json")
+print("✅ Tokenized trajectory data saved to scene_sample_token_to_traj_token_offset.json")
