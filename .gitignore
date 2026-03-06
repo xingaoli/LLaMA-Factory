@@ -192,8 +192,15 @@ DriveLM/ckpt
 DriveLM/ckpt_my
 DriveLM/output
 DriveLM/qin_example
+# custom config
+DriveLM/deploy.sh
+DriveLM/infer.yaml
+DriveLM/merge.yaml
+DriveLM/train.sh
+DriveLM/train.yaml
 
 ckpts
+ckpt
 ckpts_my
 cache
 
