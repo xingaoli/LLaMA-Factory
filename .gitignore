@@ -204,6 +204,6 @@ ckpt
 ckpts_my
 cache
 
-Qwen3-vl/frames
-Qwen3-vl/video
-Qwen3-vl/extract_imgs_from_video.py
+Qwen/frames
+Qwen/video
+Qwen/extract_imgs_from_video.py
